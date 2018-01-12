@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>排序</title>
+</head>
+<body>
+	<script>
+	let arr=[5,1,3,2,4,7,8,6,2,14,5,6];
+	//1、冒泡排序
+		function sort(arr,obj){
+			let len=arr.length;
+			for(let i=0;i<len;i++){
+				for(let j=i;j<len;j++){
+					if(arr[i]>arr[j]){
+						let num=arr[j];
+						arr[j]=arr[i];
+						arr[i]=num;
+					}
+				}
+			}
+			return arr;
+		}
+		console.log(sort(arr));
+	//2、选择排序
+	function select(arr){
+		for(let i=0;i<arr.length;i++){
+			var index=i;
+			for(let j=i+1;j<arr.length;j++){
+				if(arr[j] < arr[index]){
+					index=j;
+				}
+			}
+			let num=arr[i];
+			arr[i]=arr[index];
+			arr[index]=num;
+		}
+		return arr;
+	}
+	console.log(select(arr))
+ 	
+ 	//3、插入排序
+ 	function insert(arr){
+ 		for(let i=1;i<arr.length;i++){
+ 			let num=arr[i];
+ 			let j=i-1;
+ 			while(arr[j] > num){
+ 				arr[j+1]=arr[j];
+ 				j--;
+ 			}
+ 			arr[j+1]=num;
+ 		}
+ 		return arr;
+ 	}
+ 	console.log(insert(arr));
+
+ 	//4、归并排序
+ 	function menagesort(arr){
+ 		if(arr.length<2){
+ 			return arr;
+ 		}
+ 		let mid=Math.floor(arr.length/2);
+ 		let left=arr.slice(0,mid),
+ 		 right=arr.slice(mid);
+ 		return menage(menagesort(left),menagesort(right));
+ 	}
+ 	function menage(left,right){
+ 		let result=[];
+ 		while(left.length && right.length){
+ 			if(left[0] <= right[0]){
+ 				result.push(left.shift());
+ 			}else{
+ 				result.push(right.shift());
+ 			}
+ 		}
+
+ 		while(left.length){
+ 			result.push(left.shift());
+ 		}
+ 		while(right.length){
+ 			result.push(right.shift());
+ 		}
+ 		return result;
+ 	}
+ 	console.log(menagesort(arr));
+
+ 	//5、快速排序
+ 	function quicksort(arr,left,right){
+ 		if(left<right){
+ 			let num=arr[right];
+ 			let i=left-1;
+ 			let temp;
+ 			for(let j=left;j<=right;j++){
+ 				if(arr[j] <= num){
+ 					i++;
+ 					temp=arr[i];
+ 					arr[i]=arr[j];
+ 					arr[j]=temp;
+ 				}
+ 			}
+ 			quicksort(arr,left,i-1);
+ 			quicksort(arr,i+1,right);
+ 		}
+ 		return arr;
+ 	}
+ 	console.log(quicksort(arr,0,arr.length-1));
+ 	
+	</script>
+</body>
+</html> 
